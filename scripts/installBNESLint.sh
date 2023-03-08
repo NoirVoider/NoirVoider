@@ -7,36 +7,46 @@ then
     exit 1
 fi
 
-PS3="请输入项目框架类型选项的数字: "
-options=("vue" "react" "express" "退出")
+# 接受参数
+type=$1
 
-select opt in "${options[@]}"
-do
-    case $opt in
-        "vue")
-            echo "开始 vue 项目初始化"
-            type="vue"
-            break
-        ;;
-        "react")
-            echo "开始 react 项目初始化"
-            type="react"
-            break
-        ;;
-        "express")
-            echo "开始 express 项目初始化"
-            type="express"
-            break
-        ;;
-        "退出")
-            echo "Exiting menu"
-            exit 1
-        ;;
-        *)
-            echo "无效选项 $REPLY"
-        ;;
-    esac
-done
+# 参数验证
+if [ "$type" != "vue" ] && [ "$type" != "react" ] && [ "$type" != "express" ] && [ "$type" != "nest" ]; then
+    echo "请输入项目框架类型: vue, react, express, nest"
+    exit 1
+fi
+
+
+# PS3="请输入项目框架类型选项的数字: "
+# options=("vue" "react" "express" "退出")
+
+# select opt in "${options[@]}"
+# do
+#     case $opt in
+#         "vue")
+#             echo "开始 vue 项目初始化"
+#             type="vue"
+#             break
+#         ;;
+#         "react")
+#             echo "开始 react 项目初始化"
+#             type="react"
+#             break
+#         ;;
+#         "express")
+#             echo "开始 express 项目初始化"
+#             type="express"
+#             break
+#         ;;
+#         "退出")
+#             echo "Exiting menu"
+#             exit 1
+#         ;;
+#         *)
+#             echo "无效选项 $REPLY"
+#         ;;
+#     esac
+# done
 
 # pnpm
 # if  command -v pnpm &> /dev/null
@@ -48,7 +58,7 @@ basePkg="eslint prettier eslint-config-prettier eslint-plugin-prettier lint-stag
 
 # 设置框架类型和依赖
 if [ "$type" == "vue" ]; then
-    pkg="eslint-plugin-vue eslint-config-vue @babel/eslint-parser"
+    pkg="eslint-plugin-vue @babel/eslint-parser"
     elif [ "$type" == "react" ]; then
     pkg="eslint-config-airbnb eslint-plugin-import @babel/eslint-parser"
     elif [ "$type" == "express" ]; then
