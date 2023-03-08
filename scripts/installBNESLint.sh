@@ -12,7 +12,7 @@ type=$1
 
 # 参数验证
 if [ "$type" != "vue" ] && [ "$type" != "react" ] && [ "$type" != "express" ] && [ "$type" != "nest" ]; then
-    echo "请输入项目框架类型: vue, react, express, nest"
+    echo '请传入正确参数项目框架类型: vue, react, express, nest'
     exit 1
 fi
 
@@ -68,6 +68,9 @@ if [ "$type" == "vue" ]; then
 fi
 
 echo "正在安装依赖..."
+
+echo "安装依赖: $basePkg $pkg"
+
 npm install $basePkg $pkg --save-dev
 echo "相关依赖安装完成"
 
@@ -220,7 +223,17 @@ module.exports = {
   parserOptions: {
     parser: "@babel/eslint-parser"
   },
+  ParserOptions: {
+    ecmaVersion: 6
+  },
   rules: {
+    "spaced-comment": [
+      "error",
+      "always",
+      { line: { markers: ["#region", "#endregion", "region", "endregion"] } }
+    ],
+    camelcase: 0,
+    "no-unused-vars": 0
     // "off" 或 0 - 关闭规则
     // "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出)
     // "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
@@ -256,11 +269,8 @@ if [ $? -ne 0 ]; then
 fi
 
 
-echo "脚本执行成功！请重启编辑器"
-
-
-
-
-
-
+# 换行
+echo ""
+echo "脚本执行成功！请重启编辑器!"
+echo ""
 
