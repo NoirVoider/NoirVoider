@@ -216,15 +216,13 @@ module.exports = {
   root: true,
   env: {
     node: true,
-    browser: true,
     es6: true
   },
   extends: ["airbnb", "eslint:recommended", "plugin:prettier/recommended"],
   parserOptions: {
-    parser: "@babel/eslint-parser"
-  },
-  ParserOptions: {
-    ecmaVersion: 6
+    parser: "@babel/eslint-parser",
+    // 防止新语法报错：parsing error: unexpected token
+    ecmaVersion: 2020
   },
   rules: {
     "spaced-comment": [
