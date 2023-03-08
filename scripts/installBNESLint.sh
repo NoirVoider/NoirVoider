@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # 检查 Node.js 是否安装
 if ! command -v node &> /dev/null
