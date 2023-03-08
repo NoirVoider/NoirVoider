@@ -221,16 +221,12 @@ module.exports = {
   extends: ["airbnb", "eslint:recommended", "plugin:prettier/recommended"],
   parserOptions: {
     parser: "@babel/eslint-parser",
-    // 防止新语法报错：parsing error: unexpected token
     ecmaVersion: 2020
   },
   rules: {
-    "spaced-comment": [
-      "error",
-      "always",
-      { line: { markers: ["#region", "#endregion", "region", "endregion"] } }
-    ],
     camelcase: 0,
+    "spaced-comment": 0,
+    "import/order": 0,
     "no-unused-vars": 0
     // "off" 或 0 - 关闭规则
     // "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出)
