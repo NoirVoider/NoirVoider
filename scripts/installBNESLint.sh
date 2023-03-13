@@ -23,7 +23,6 @@ fi
 #     read -p "检测到 pnpm, 是否使用 pnpm 安装依赖? (y/n): --> " pnpm
 # fi
 
-# TODO eslint-plugin-jsx-a11y 依赖缺失问题排查
 
 basePkg="eslint prettier eslint-config-prettier eslint-plugin-prettier lint-staged yorkie commitlint commitlint-config-gitmoji"
 
@@ -34,7 +33,7 @@ if [ "$type" == "vue" ]; then
     elif [ "$type" == "react" ]; then
     pkg="eslint-config-airbnb eslint-plugin-import @babel/eslint-parser"
     elif [ "$type" == "express" ]; then
-    pkg="eslint-config-airbnb eslint-plugin-import @babel/eslint-parser"
+    pkg="eslint-config-airbnb-base eslint-plugin-import @babel/eslint-parser"
     elif [ "$type" == "nest" ]; then
     pkg="typescript-eslint/eslint-plugin @typescript-eslint/parser"
 fi
@@ -95,7 +94,7 @@ EOF
 if [ ! -d ".vscode" ]; then
     mkdir -p ".vscode"
 fi
-cat <<EOF > ./.vscode/extensions.json
+cat <<EOF > .vscode/extensions.json
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
@@ -206,7 +205,7 @@ module.exports = {
     node: true,
     es6: true
   },
-  extends: ["airbnb", "eslint:recommended", "plugin:prettier/recommended"],
+  extends: ["airbnb-base", "eslint:recommended", "plugin:prettier/recommended"],
   parserOptions: {
     parser: "@babel/eslint-parser",
     ecmaVersion: 2020
