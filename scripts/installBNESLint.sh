@@ -17,44 +17,16 @@ if [ "$type" != "vue" ] && [ "$type" != "react" ] && [ "$type" != "express" ] &&
 fi
 
 
-# PS3="请输入项目框架类型选项的数字: "
-# options=("vue" "react" "express" "退出")
-
-# select opt in "${options[@]}"
-# do
-#     case $opt in
-#         "vue")
-#             echo "开始 vue 项目初始化"
-#             type="vue"
-#             break
-#         ;;
-#         "react")
-#             echo "开始 react 项目初始化"
-#             type="react"
-#             break
-#         ;;
-#         "express")
-#             echo "开始 express 项目初始化"
-#             type="express"
-#             break
-#         ;;
-#         "退出")
-#             echo "Exiting menu"
-#             exit 1
-#         ;;
-#         *)
-#             echo "无效选项 $REPLY"
-#         ;;
-#     esac
-# done
-
 # pnpm
 # if  command -v pnpm &> /dev/null
 # then
 #     read -p "检测到 pnpm, 是否使用 pnpm 安装依赖? (y/n): --> " pnpm
 # fi
 
+# TODO eslint-plugin-jsx-a11y 依赖缺失问题排查
+
 basePkg="eslint prettier eslint-config-prettier eslint-plugin-prettier lint-staged yorkie commitlint commitlint-config-gitmoji"
+
 
 # 设置框架类型和依赖
 if [ "$type" == "vue" ]; then
@@ -78,7 +50,6 @@ echo "相关依赖安装完成"
 echo "正在生成配置文件..."
 
 # 创建 .prettierignore 配置文件
-function createPrettierConfig() {
 cat <<EOF > .prettierrc.js
 module.exports = {
   root: true,
@@ -117,9 +88,25 @@ module.exports = {
   endOfLine: "lf"
 }
 EOF
-}
 
-createPrettierConfig
+
+
+# .vscode/extensions.json
+if [ ! -d ".vscode" ]; then
+    mkdir -p ".vscode"
+fi
+cat <<EOF > ./.vscode/extensions.json
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "EditorConfig.EditorConfig",
+    "seatonjiang.gitmoji-vscode",
+    "SonarSource.sonarlint-vscode"
+  ]
+}
+EOF
+
 
 # .editorconfig
 cat <<EOF > .editorconfig
@@ -148,6 +135,7 @@ trim_trailing_whitespace = false
 [Makefile]
 indent_style = tab
 EOF
+
 
 # commitlint.config.js
 cat <<EOF > commitlint.config.js
@@ -258,7 +246,7 @@ fi
 echo "配置文件生成完成"
 
 if [ $? -ne 0 ]; then
-    echo "初始化脚本执行失败！请尝试重启编辑器, 如有问题请联系@唐天博"
+    echo "初始化脚本执行失败！请尝试重启编辑器, 如有问题请联系 @唐天博"
     exit 1
 fi
 
