@@ -17,12 +17,6 @@ if [ "$type" != "vue" ] && [ "$type" != "react" ] && [ "$type" != "express" ] &&
 fi
 
 
-# pnpm
-# if  command -v pnpm &> /dev/null
-# then
-#     read -p "检测到 pnpm, 是否使用 pnpm 安装依赖? (y/n): --> " pnpm
-# fi
-
 
 basePkg="eslint prettier eslint-config-prettier eslint-plugin-prettier lint-staged yorkie commitlint commitlint-config-gitmoji"
 
@@ -42,7 +36,15 @@ echo "正在安装依赖..."
 
 echo "安装依赖: $basePkg $pkg"
 
-npm install $basePkg $pkg --save-dev
+if  command -v pnpm &> /dev/null
+then
+    echo "检测到 pnpm，使用 pnpm 安装依赖"
+    pnpm install
+    pnpm install $basePkg $pkg --save-dev
+else
+    npm install $basePkg $pkg --save-dev
+fi
+
 echo "相关依赖安装完成"
 
 # 生成配置文件
